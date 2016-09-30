@@ -1,0 +1,153 @@
+<div class="page-content-wrapper">
+            <div class="page-content">
+
+                <div id="divProgress" class="divProgress">
+                    <p class="progressP">
+                        <img src="~/assets/admin/layout/img/loading-spinner-default.gif" />
+                    </p>
+                </div>
+                
+
+
+                <!--Contents Start-->
+                <h3 class="page-title"> Add Schedule Event </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li> <i class="fa fa-home"></i> <a href="/Home/Index">Home</a> <i class="fa fa-angle-right"></i> </li>
+                        <li> Add Schedule Event </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN VALIDATION STATES-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-users"></i>Add Schedule Event</div>
+                                <div class="tools"> <a href="javascript:;" class="collapse"> </a> </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="mrb20 clearfix">
+                                    <div class="col-md-12">
+
+                                        <div class="form-horizontal">
+                                            <h3 class="block">Provide schedule event details</h3>
+                                            <div class="form-group">
+                                                <input id="hdnEventDateID" type="hidden" />
+                                                <label class="control-label col-md-3">Event Name</label>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" id="ddlRecurring"></select>
+                                                    <span class="help-block"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Recurring" checked> Recurring
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Oneoff"> One off
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="divRecurring1">
+                                                <label class="control-label col-md-3">
+                                                    Event 
+                                                </label>
+                                                <div class="col-md-4 table-top">
+                                                    <input type="text" class="form-control" name="event_number" id="event_number" onkeypress="return isNumberKey(event)" />
+                                                    <select class="form-control" id="ddlRecurring">
+                                                    </select>
+                                                    <span class="help-block">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="divRecurring2">
+                                                <label class="control-label col-md-3">
+                                                </label>
+                                                <div class="col-md-4 table-top">
+                                                    <select class="form-control" id="ddlMonth">
+                                                        <option value="0">Select Month </option>
+                                                        <option value="1">JAN</option>
+                                                        <option value="2">FEB</option>
+                                                        <option value="3">MAR</option>
+                                                        <option value="4">APR</option>
+                                                        <option value="5">MAY</option>
+                                                        <option value="6">JUN</option>
+                                                        <option value="7">JUL</option>
+                                                        <option value="8">AUG</option>
+                                                        <option value="9">SEP</option>
+                                                        <option value="10">OCT</option>
+                                                        <option value="11">NOV</option>
+                                                        <option value="12">DEC</option>
+                                                    </select>
+                                                    <select class="form-control" id="ddlWeek">
+                                                        <option value="0">Select Week</option>
+                                                    </select>
+                                                    <select class="form-control" id="ddlDay">
+                                                        <option value="0">Select Day</option>
+                                                        <option value="1">SunDay</option>
+                                                        <option value="2">MonDay</option>
+                                                        <option value="3">TuesDay</option>
+                                                        <option value="4">WednesDay</option>
+                                                        <option value="5">ThrusDay</option>
+                                                        <option value="6">FriDay</option>
+                                                        <option value="7">SaturDay</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="divOneoff">
+                                                <label class="control-label col-md-3">
+                                                    Date <span class="required">
+                                                        *
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-4">
+
+                                                    <div class="input-group input-medium date date-picker" id="divdate" data-date="01-09-2016" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                                        <input type="text" class="form-control" readonly id="eventdate">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                        </span>
+                                                    </div>
+                                                    <span> e.g 31-11-2020 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  mrb20">
+
+                                            <div class="col-md-offset-3 col-md-4">
+                                                <button type="reset" class="btn green" id="btnEventSchedule"><i class="fa fa-save"></i> Save </button>
+                                                <a class="btn green" ><i class="fa fa-ellipsis-h"></i> Cancel</a>
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-offset-2 col-md-6">
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover" id="tblEventSchedule">
+                                                        <thead>
+                                                            <tr>
+                                                                <th> Event </th>
+                                                                <th> Action </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="EventDatetbl"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Contents End-->
+            </div>
+        </div>

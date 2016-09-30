@@ -1,0 +1,123 @@
+<div class="page-content-wrapper">
+            <div class="page-content">
+                <h3 class="page-title"> Event </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li> <i class="fa fa-home"></i> <a [routerLink]="['Calendars']">Home</a> <i class="fa fa-angle-right"></i> </li>
+                        <li> Event </li>
+                    </ul>
+                </div>
+
+                
+                <!-- END PAGE HEADER-->
+                <!-- BEGIN PAGE CONTENT-->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN VALIDATION STATES-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-calendar-o"></i>Event </div>
+                                <div class="tools"> <a href="javascript:;" class="collapse"> </a> </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="text-right btn-main">
+                                    
+                                    <a [routerLink]="['/eventForm/new']" class="btn green"> <i class="fa fa-plus"></i> Add Event </a>
+                                    <a [routerLink]="['/eventschedule']" class="btn green"> <i class="icon-calendar"></i> Schedule Event </a>
+                                    <a [routerLink]="['/import']" class="btn green"> <i class="icon-arrow-up"></i> Import </a>
+                                    <a class="btn green"> <i class="icon-magnifier"></i> Search </a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th> Event Name </th>
+                                                <th> Description </th>
+                                                <th> Event Date </th>
+                                                <th> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             <spinner [visible]="postsLoading"></spinner>
+                                            <tr *ngFor="let event of events">
+                                                <td>{{event.Name}}</td>
+                                                <td> {{event.Description}} </td>
+                                                <td>  {{event.Modified}}  </td>
+                                                <td>
+                                                    <a [routerLink]="['/eventdetails']" class="btn default btn-xs green"><i class="fa fa-ellipsis-h"></i> Detail </a> 
+                                                    <a class="btn default btn-xs purple"><i class="fa fa-edit"></i> Edit </a> 
+                                                    <a [routerLink]="['/peopletoevent']" class="btn default btn-xs blue"><i class="fa fa-user"></i> Add People </a> 
+                                                    <a class="btn default btn-xs red"><i class="fa fa-remove"></i> Delete </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 table-top">
+                                        <label> Showing 1 to 10 of 18 entries</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 table-top text-right">
+                                        <!--<pagination [items]="events" (page-changed)="onPageChanged($event)"></pagination>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END VALIDATION STATES-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--Contents End-->
+            </div>
+        </div>
+
+
+        <div id="responsiveList" class="modal fade" tabindex="-1" data-width="800">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">Event List</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <input id="hdnEventDateID" type="hidden" />
+                                <label class="control-label col-md-3">Event Name</label>
+                                <div class="col-md-4">
+                                    <select id="Event" class="form-control" name="Event"></select>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">
+                                    Stops
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="stops" id="stops" />
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Date Range </label>
+                                <div class="col-md-4">
+                                    <div class="input-group  date date-picker" data-date="01-09-2016" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                        <input type="text" class="form-control" readonly id="eventdate">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="btn-main" style="text-align:center;">
+                                <button type="submit" class="btn green" id="btnSearch"><i class="icon-magnifier"></i> Get Details </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

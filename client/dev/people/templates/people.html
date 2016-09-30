@@ -1,0 +1,90 @@
+<div class="page-content-wrapper">
+            <div class="page-content">
+
+                <div id="divProgress" class="divProgress">
+                    <p class="progressP">
+                        <img src="/assets/admin/layout/img/loading-spinner-default.gif" />
+                    </p>
+                </div>
+                <!--Contents Start-->
+                <!-- BEGIN STYLE CUSTOMIZER -->
+                <!-- END STYLE CUSTOMIZER -->
+                <!-- BEGIN PAGE HEADER-->
+                <h3 class="page-title"> People </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li> <i class="fa fa-home"></i> <a href="index.html">Home</a> <i class="fa fa-angle-right"></i> </li>
+                        <li> People </li>
+                    </ul>
+                </div>
+                <!-- END PAGE HEADER-->
+                <!-- BEGIN PAGE CONTENT-->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN VALIDATION STATES-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-users"></i>People </div>
+                                <div class="tools"> <a href="javascript:;" class="collapse"> </a> </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="text-right btn-main">
+                                    
+                                    <a class="btn green" [routerLink]="['/peopleForm/new']"> <i class="fa fa-plus"></i> People</a>
+                                    <a class="btn green" [routerLink]="['/peopletoevent']"> <i class="icon-calendar"></i> Add to Event</a>
+                                    <a class="btn green" [routerLink]="['/import']"> <i class="icon-arrow-up"></i> Import </a>
+                                    <a class="btn green" > <i class="icon-magnifier"></i> Search </a>
+                                 </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th> Name </th>
+                                                <th> Gender </th>
+                                                <th> Phone </th>
+                                                <th> Email </th>
+                                                <th> Event </th>
+                                                <th> Date </th>
+                                                <th> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <spinner [visible]="postsLoading"></spinner>
+                                            <tr *ngFor="let people of peoples">
+                                                <td>{{people.Name}}</td>
+                                                <td>{{people.Gender}}</td>
+                                                <td class="phone-pref">{{people.Phone}}</td>
+                                                <td>{{people.Email}}</td>
+                                                <td>Paris Day Trip</td>
+                                                <td> 10 July 2016  </td>
+                                                <td>
+                                                    
+                                                    <a [routerLink]="['/peopleForm' , people.ID ]" class="btn default btn-xs purple"><i class="fa fa-edit"></i> Edit </a> 
+                                                    <a [routerLink]="['/peopletoevent']" class="btn default btn-xs blue"><i class="icon-calendar"></i> Add to Event </a> 
+                                                    <a (click)="delete(people.ID)" class="btn default btn-xs red"><i class="fa fa-remove"></i> Delete </a>
+                                                </td>
+                                            </tr>
+                                         </tbody>
+                                    </table>
+                                    
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6 col-sm-6 table-top">
+                                        <label> Showing 1 to 10 of 18 entries</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 table-top text-right">
+                                        <!--<pagination [items]="peoples" (page-changed)="onPageChanged($event)"></pagination>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END VALIDATION STATES-->
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT-->
+                <!--Contents End-->
+            </div>
+        </div>

@@ -1,0 +1,456 @@
+<div class="page-content-wrapper">
+	<div class="page-content">
+
+		<!-- BEGIN STYLE CUSTOMIZER -->
+
+		<!-- END STYLE CUSTOMIZER -->
+		<!-- BEGIN PAGE HEADER-->
+		<h3 class="page-title"> Add Event </h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li> <i class="fa fa-home"></i> <a href="index.html">Home</a> <i class="fa fa-angle-right"></i> </li>
+				<li> Add Event </li>
+			</ul>
+		</div>
+		<!-- END PAGE HEADER-->
+		<!-- BEGIN PAGE CONTENT-->
+
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN VALIDATION STATES-->
+				<div id="form_wizard_1" class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption"> <i class="fa fa-calendar-o"></i>Add Event - <span class="step-title">
+								Step 1 of 4 </span> </div>
+						<div class="tools">
+							<a href="javascript:;" class="collapse"> </a>
+						</div>
+					</div>
+					<div class="portlet-body form">
+
+
+      
+    
+						<form 
+							#f="ngForm" 
+							(ngSubmit)="onSubmit(f.form.value)" 
+							class="form-horizontal">
+
+							<div class="form-wizard">
+								<div class="form-body">
+									<ul class="nav nav-pills nav-justified steps">
+										<li class="step_1">
+											<a href="#tab1" data-toggle="tab" class="step">
+												<span class="number">
+												1 </span>
+												<span class="desc">
+												<i class="fa fa-check"></i> Event Detail  </span>
+											</a>
+										</li>
+										<li class="step_2">
+											<a href="#tab2" data-toggle="tab" class="step">
+												<span class="number">
+												2 </span>
+												<span class="desc">
+												<i class="fa fa-check"></i> Add Stops  </span>
+											</a>
+										</li>
+										<li class="step_3">
+											<a href="#tab3" data-toggle="tab" class="step active">
+												<span class="number">
+												3 </span>
+												<span class="desc">
+												<i class="fa fa-check"></i> Schedule Event  </span>
+											</a>
+										</li>
+
+									</ul>
+									<div id="bar" class="progress progress-striped" role="progressbar">
+										<div class="progress-bar progress-bar-success" [style.width]="width + '%'">
+										</div>
+									</div>
+									<div class="tab-content">
+										<div class="alert alert-danger display-none">
+											<button class="close" data-dismiss="alert"></button> You have some form errors. Please check below.
+										</div>
+										<div class="alert alert-success display-none">
+											<button class="close" data-dismiss="alert"></button> Your form validation is successful!
+										</div>
+
+
+
+
+										<div *ngIf="step1active" class="tab-pane active" id="tab1">
+
+											<h3 class="block">Provide event details</h3>
+											<div class="form-group">
+												<label class="control-label col-md-3">Event Name <span class="required">
+													* </span>
+													</label>
+												<div class="col-md-4">
+													<input 
+														(keyup)="keypress_event()" 
+														#name 
+														required 
+														type="text" 
+														class="form-control" 
+														name="name" 
+														[(ngModel)]="event.eventName"
+														ngModel />
+
+													<div *ngIf="checking_uniquness">
+														<i class="fa fa-spinner fa-spin"></i>
+													</div>
+
+													<div *ngIf="edited" class="alert alert-danger">
+														{{event_error}}
+													</div>
+
+													<div *ngIf="name.touched && name.errors">
+														<div *ngIf="name.errors.required" class="alert alert-danger">
+															Name is required.
+														</div>
+													</div>
+													<span class="help-block">
+														Provide event name </span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3">Description <span class="required">
+													* </span>
+													</label>
+												<div class="col-md-4">
+													<textarea 
+														#description 
+														required 
+														class="form-control" 
+														rows="7" 
+														[(ngModel)]="event.eventDescription"
+														name="description"
+														ngModel >
+														</textarea>
+
+													<div *ngIf="description.touched && description.errors">
+														<div *ngIf="description.errors.required" class="alert alert-danger">
+															Description is required.
+														</div>
+													</div>
+													<span class="help-block">
+														Provide event description </span>
+												</div>
+											</div>
+
+										</div>
+										<div *ngIf="step2active" class="tab-pane active" id="tab2">
+											<h3 class="block">Provide Stop details</h3>
+											<div class="form-group">
+												<label class="control-label col-md-3">Event Name 
+													</label>
+												<div class="col-md-4">
+													<label class="wizard-label-inside">{{event_name}}</label>
+
+												</div>
+											</div>
+											<div class="form-group">
+												<input #check_add_edit ngControl="check_add_edit" class="form-control" type="hidden" name="check_add_edit">
+
+												<label class="control-label col-md-3">Name <span class="required">
+													* </span>
+													</label>
+												<div class="col-md-4 table-top">
+
+													<input 
+														class="form-control" 
+														name="stopname" 
+														#stopname 
+														(keyup.enter)="addInfo(stopname.value, on.checked , off.checked)"
+														[(ngModel)]="stopnamevalue"
+														ngModel />
+
+													<button class="btn green" (click)="addInfo(stopname.value, on.checked , off.checked, check_add_edit.value)">
+																<i class="fa fa-plus"></i> Add
+														</button>
+
+													<span class="help-block">
+														Provide stop name </span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3">Scan <span class="required">
+													* </span>
+													</label>
+												<div class="col-md-4">
+													<label class="checkbox-inline">
+                                                          <input
+														  	#on
+															[checked]=false
+															type="checkbox" 
+															id="inlineCheckbox1" 
+															value="option1"> On
+                                                        </label>
+													<label class="checkbox-inline">
+                                                          <input 
+														  	#off
+															[checked]=false
+														  	type="checkbox" 
+															id="inlineCheckbox2" 
+															value="option2"> Off
+                                                        </label>
+
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-offset-2 col-md-6">
+
+													<div class="table-responsive">
+
+														<table class="table table-striped table-bordered table-hover step-table">
+															<thead>
+																<tr>
+																	<th> Name </th>
+																	<th> On </th>
+																	<th> Off </th>
+																	<th> Action </th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr *ngFor="let info of information let i = index">
+																	<td>{{ info.description }}</td>
+																	<td>
+																		<span *ngIf="info.ondescription != 0">
+																	<i class='fa fa-check green-color'></i>
+																</span>
+																	</td>
+																	<td>
+																		<span *ngIf="info.offdescription != 0"> 
+																	<i class='fa fa-check red-color'></i>
+																</span>
+																	</td>
+																	<td>
+																		<a (click)="editInfo(info, i+1 )" class="btn default btn-xs purple"><i class="fa fa-edit"></i> Edit </a>
+																		<a (click)="removeInfo(info, i+1 )" class="btn default btn-xs red">
+																			<i class="fa fa-remove"></i> Delete
+																		</a>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div *ngIf="step3active" class="tab-pane active" id="tab3">
+											<h3 class="block">Provide schedule event details</h3>
+											<div class="form-group">
+												<label class="control-label col-md-3">Event Name 
+													</label>
+												<div class="col-md-4">
+													<label class="wizard-label-inside">{{event_name}}</label>
+
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-3">
+													</label>
+												<div class="col-md-4">
+													<label class="radio-inline">
+                                                          <input 
+														  		checked 
+																type="radio" 
+																name="inlineRadioOptions" 
+																id="inlineRadio1"
+																(click)="step3_checked('recurring')"
+																value="option1"> 
+															Recurring 
+                                                        </label> &nbsp;&nbsp;&nbsp;&nbsp;
+													<label class="radio-inline">
+                                                          <input 
+														  	type="radio" 
+															name="inlineRadioOptions" 
+															id="inlineRadio2"
+															(click)="step3_checked('one_off')"
+															value="option2"> 
+															One off
+                                                        </label>
+
+												</div>
+											</div>
+
+											<div *ngIf="recurring_shown">
+
+												<div class="form-group">
+													<label class="control-label col-md-3">Event <span class="required">
+													* </span>
+													</label>
+													<div class="col-md-4 table-top">
+														<input 
+															type="text" 
+															class="form-control" 
+															name="event_number" 
+															[(ngModel)]="eventSchedule.ScheduleCount" 
+															ngModel />
+														<select 
+															[(ngModel)]="eventSchedule.RecurringID" 
+															class="form-control" 
+															(change)="onEventchange(event_range.value)" 
+															ngModel
+															name="event_range" 
+															#event_range>
+															<option 
+																*ngFor="let item of RecurringList" 
+																value="{{item.ID}}" >{{item.Name}}</option>
+														</select>
+														<span class="help-block">
+														</span>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="control-label col-md-3">
+													</label>
+													<div class="col-md-4 table-top">
+
+														<select 
+															[disabled]="butMonthDisabled" 
+															class="form-control" 
+															[(ngModel)]="eventSchedule.Month"
+															[ngModelOptions]="{standalone: true}">
+																<option value="0">Select Month </option>
+																<option value="1">January </option>
+																<option value="2">February </option>
+																<option value="3">March </option>
+																<option value="4">April</option>
+																<option value="5">May</option>
+																<option value="6">June</option>
+																<option value="7">July</option>
+																<option value="8">Auguest</option>
+																<option value="9">September</option>
+																<option value="10">Octomber</option>
+																<option value="11">November</option>
+																<option value="12">December</option>
+														</select>
+
+														<select 
+															class="form-control" 
+															[disabled]="butWeekDisabled" 
+															[(ngModel)]="eventSchedule.Week"
+															[ngModelOptions]="{standalone: true}">
+																<option value="0">Select Week</option>
+														</select>
+
+														<select 
+															[disabled]="butNumericDayDisabled" 
+															*ngIf="numberic_day" 
+															class="form-control" 
+															[(ngModel)]="eventSchedule.NumericDay"
+															[ngModelOptions]="{standalone: true}">
+															<option value="0">Select Day</option>
+															<option
+																*ngFor='let loop3 of counter(31); let i= index'>
+																{{i+1}}
+															</option>
+														</select>
+
+														<select 
+															[disabled]="butAlphaDisabled" 
+															*ngIf="alpha_day" 
+															class="form-control" 
+															[(ngModel)]="eventSchedule.AlphaDAy"
+															[ngModelOptions]="{standalone: true}" >
+															<option value="0">Select Day</option>
+															<option>Monday</option>
+															<option>Tuesday</option>
+															<option>Wednesday</option>
+															<option>Thrusday</option>
+															<option>Friday</option>
+															<option>Saturday</option>
+															<option>Sunday</option>
+														</select>
+
+													</div>
+												</div>
+
+											</div>
+
+
+											<div class="form-group" *ngIf="one_off_shown">
+												<label class="control-label col-md-3">Date <span class="required">
+													* </span>
+													</label>
+												<div class="col-md-4">
+													<div class="input-group input-medium date date-picker" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+														<input type="text" class="form-control" readonly>
+														<span class="input-group-btn">
+															<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+															</span>
+													</div>
+													e.g 31/11/2020
+												</div>
+											</div>
+											<div class="form-group  mrb20">
+												<div class="col-md-offset-3 col-md-4">
+
+													<button class="btn green" (click)="addEventSchedule()">
+																<i class="fa fa-plus"></i> 
+														</button>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-offset-2 col-md-6">
+
+													<div class="table-responsive">
+														<table class="table table-striped table-bordered table-hover">
+															<thead>
+																<tr>
+																	<th> Event </th>
+																	<th> Action </th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr *ngFor="let item of eventScheduleArray let i = index">
+																	<td>{{ item.EventMsg }}</td>
+																	<td>
+																		<a (click)="editSchedule(item, i )" class="btn default btn-xs purple"><i class="fa fa-edit"></i> Edit </a>
+																		<a (click)="removeSchedule(item, i )" class="btn default btn-xs red">
+																			<i class="fa fa-remove"></i> Delete
+																		</a>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+
+								<div class="form-actions">
+									<div class="row">
+										<div class="col-md-offset-3 col-md-9">
+											<input *ngIf="back1" (click)="onBack1(f.form.value)" class="btn default button-previous" type="button" value="Back">
+
+											<input type="button" *ngIf="continue1" (click)="onContinue(f.form.value)" class="btn blue button-next" [disabled]="!f.valid"
+												value="Continue">
+											<input type="button" *ngIf="continue2" (click)="onContinue2(f.form.value)" class="btn blue button-next" [disabled]="!f.valid"
+												value="Continue 2">
+
+											<button *ngIf="submit_btn" type="submit" class="btn green" [disabled]="!f.valid">
+													Submit
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!-- END VALIDATION STATES-->
+				</div>
+			</div>
+		</div>
+		<!-- END PAGE CONTENT-->
+	</div>
+</div>

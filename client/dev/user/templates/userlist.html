@@ -1,0 +1,83 @@
+<div class="page-content-wrapper">
+            <div class="page-content">
+
+                <div id="divProgress" class="divProgress">
+                    <p class="progressP">
+                        <img src="public/assets/admin/layout/img/loading-spinner-default.gif" />
+                    </p>
+                </div>
+                <!--
+                <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" />
+                <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" />
+                -->
+
+                <!--Contents Start-->
+                <!-- BEGIN STYLE CUSTOMIZER -->
+                <!-- END STYLE CUSTOMIZER -->
+                <!-- BEGIN PAGE HEADER-->
+                <h3 class="page-title"> User </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li> <i class="fa fa-home"></i> <a href="index.html">Home</a> <i class="fa fa-angle-right"></i> </li>
+                        <li> User </li>
+                    </ul>
+                </div>
+                <!-- END PAGE HEADER-->
+                <!-- BEGIN PAGE CONTENT-->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN VALIDATION STATES-->
+                        <div class="portlet box green">
+                            <div class="portlet-title">
+                                <div class="caption"> <i class="fa fa-users"></i>User</div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="text-right btn-main">
+                                    <a class="btn green" [routerLink]="['/userForm/new']"> <i class="fa fa-plus"></i>User </a>
+                                </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th> UserName </th>
+                                                <th> Email </th>
+                                                <th> Role </th>
+                                                <th> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let users of users">
+                                                <td>{{users.Name}}</td>
+                                                <td>{{users.Email}}</td>
+                                                <td>{{users.Role}}</td>
+                                                <td>
+                                                     
+                                                    <a [routerLink]="['/userForm/', users.ID]" class="btn default btn-xs purple"><i class="fa fa-edit"></i> Edit </a> 
+                                                    <a [routerLink]="['/peopletoevent']" class="btn default btn-xs blue"><i class="icon-calendar"></i> Add to Event </a> 
+                                                    <a class="btn default btn-xs red" (click)="DeleteUser(users.ID);" ><i class="fa fa-remove"></i> Delete </a>
+                                                </td>
+                                           
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                  <div class="row">
+
+                                    <div class="col-md-6 col-sm-6 table-top">
+                                        <label> Showing 1 to 10 of 18 entries</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 table-top text-right">
+                                        <!--<pagination [items]="users" (page-changed)="onPageChanged($event)"></pagination>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END VALIDATION STATES-->
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT-->
+                <!--Contents End-->
+            </div>
+        </div>
